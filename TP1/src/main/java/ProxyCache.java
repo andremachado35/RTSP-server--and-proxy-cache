@@ -7,6 +7,7 @@
 
 import com.sun.deploy.net.HttpRequest;
 import com.sun.deploy.net.HttpResponse;
+import javax.xml.ws.handler.Handler;
 
 import java.net.*;
 import java.io.*;
@@ -22,7 +23,7 @@ public class ProxyCache {
     public static void init(int p) {
         port = p;
         try {
-            socket = /* Fill in */;
+            socket = new ServerSocket(port);
         } catch (IOException e) {
             System.out.println("Error creating socket: " + e);
             System.exit(-1);
@@ -34,14 +35,17 @@ public class ProxyCache {
         HttpRequest request = null;
         HttpResponse response = null;
 
-        /* Process request. If there are any exceptions, then simply
+        /* Process request.an If there are y exceptions, then simply
          * return and end this request. This unfortunately means the
          * client will hang for a while, until it timeouts. */
 
         /* Read request */
         try {
-            BufferedReader fromClient = /* Fill in */;
-            request = /* Fill in */;
+            BufferedReader fromClient = new BufferedReader(new InputStreamReader(client.getInputStream()));
+            System.out.println("Reading request...");
+            request = new HttpRequest(fromClient);
+            System.out.println("Got request...");
+
         } catch (IOException e) {
             System.out.println("Error reading request from client: " + e);
             return;
@@ -49,9 +53,9 @@ public class ProxyCache {
         /* Send request to server */
         try {
             /* Open socket and write request to socket */
-            server = /* Fill in */;
-            DataOutputStream toServer = /* Fill in */;
-            /* Fill in */
+            server = new Socket(request.getHost(), request.getPort());
+            DataOutputStream toServer = new DataOutputStream(server.getOutputStream());
+            toServer.writeBytes(request.toString());
         } catch (UnknownHostException e) {
             System.out.println("Unknown host: " + request.getHost());
             System.out.println(e);
@@ -62,11 +66,16 @@ public class ProxyCache {
         }
         /* Read response and forward it to client */
         try {
-            DataInputStream fromServer = /* Fill in */;
-            response = /* Fill in */;
-            DataOutputStream toClient = /* Fill in */;
-            /* Fill in */
-            /* Write response to client. First headers, then body */
+            DataInputStream fromServer =
+                    new DataInputStream(server.getInputStream());
+
+
+            response = new HttpResponse(fromServer);
+
+            DataOutputStream toClient =
+                    new DataOutputStream(client.getOutputStream());
+            toClient.writeBytes(response.toString());
+            toClient.write(response.body);
             client.close();
             server.close();
             /* Insert object into the cache */
@@ -99,7 +108,7 @@ public class ProxyCache {
 
         while (true) {
             try {
-                client = /* Fill in */;
+                client = socket.accept();
                 handle(client);
             } catch (IOException e) {
                 System.out.println("Error reading request from client: " + e);
