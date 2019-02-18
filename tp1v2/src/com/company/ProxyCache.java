@@ -1,4 +1,4 @@
-/**
+package com.company; /**
  * ProxyCache.java - Simple caching proxy
  *
  * $Id: ProxyCache.java,v 1.3 2004/02/16 15:22:00 kangasha Exp $
@@ -7,11 +7,11 @@
 
 import com.company.HttpRequest;
 import com.company.HttpResponse;
-import javax.xml.ws.handler.Handler;
 
-import java.net.*;
 import java.io.*;
-import java.util.*;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class ProxyCache {
     /** Port for the proxy */
@@ -34,6 +34,7 @@ public class ProxyCache {
         Socket server = null;
         HttpRequest request = null;
         HttpResponse response = null;
+
 
         /* Process request.an If there are y exceptions, then simply
          * return and end this request. This unfortunately means the
