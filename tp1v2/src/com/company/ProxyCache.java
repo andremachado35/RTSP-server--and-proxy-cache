@@ -5,13 +5,14 @@ package com.company; /**
  *
  */
 
-import com.company.HttpRequest;
-import com.company.HttpResponse;
+//import com.company.HttpRequest;
+//import com.company.HttpResponse;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Scanner;
 
 public class ProxyCache {
     /** Port for the proxy */
@@ -91,8 +92,12 @@ public class ProxyCache {
     public static void main(String args[]) {
         int myPort = 0;
 
+        Scanner port=new Scanner((System.in));
+
         try {
-            myPort = Integer.parseInt(args[0]);
+            //myPort = Integer.parseInt(args[0]);
+            System.out.println("enter door");
+            myPort = Integer.parseInt((port.nextLine()));
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Need port number as argument");
             System.exit(-1);
