@@ -92,12 +92,10 @@ public class ProxyCache {
     public static void main(String args[]) {
         int myPort = 0;
 
-        Scanner port=new Scanner((System.in));
+        //Scanner port=new Scanner((System.in));
 
         try {
-            //myPort = Integer.parseInt(args[0]);
-            System.out.println("enter port");
-            myPort = Integer.parseInt((port.nextLine()));
+            myPort = Integer.parseInt(args[0]);
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Need port number as argument");
             System.exit(-1);

@@ -1,13 +1,12 @@
-/**
+package com.company; /**
  * HttpRequest - HTTP request container and parser
  *
  * $Id: HttpRequest.java,v 1.2 2003/11/26 18:11:53 kangasha Exp $
  *
  */
 
-import java.io.*;
-import java.net.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
 
 public class HttpRequest {
     /** Help variables */

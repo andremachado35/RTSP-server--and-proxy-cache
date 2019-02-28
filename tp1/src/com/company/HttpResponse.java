@@ -1,13 +1,12 @@
-/**
+package com.company; /**
  * HttpResponse - Handle HTTP replies
  *
  * $Id: HttpResponse.java,v 1.2 2003/11/26 18:12:42 kangasha Exp $
  *
  */
 
-import java.io.*;
-import java.net.*;
-import java.util.*;
+import java.io.DataInputStream;
+import java.io.IOException;
 
 public class HttpResponse {
     final static String CRLF = "\r\n";
@@ -95,6 +94,7 @@ public class HttpResponse {
             System.out.println("Error reading response body: " + e);
             return;
         }
+
 
 
     }
