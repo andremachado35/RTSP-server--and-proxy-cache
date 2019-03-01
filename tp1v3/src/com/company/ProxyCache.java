@@ -111,11 +111,16 @@ public class ProxyCache {
         /** Main loop. Listen for incoming connections and spawn a new
          * thread for handling them */
         Socket client = null;
-
         while (true) {
             try {
                 client = socket.accept();
                 handle(client);
+                ProxyCacheThread request = new ProxyCacheThread(client);
+
+                // Criar uma  nova thread para processar a requisição.
+                Thread thread = new Thread(request);
+                //Iniciar a thread.
+                thread.start();
             } catch (IOException e) {
                 System.out.println("Error reading request from client: " + e);
                 /* Definitely cannot continue processing this request,
@@ -124,5 +129,19 @@ public class ProxyCache {
             }
         }
 
+    }
+}
+class ProxyCacheThread implements Runnable
+{
+    private Socket client = null;
+
+    public ProxyCacheThread(Socket socket)
+    {
+        this.client = socket;
+    }
+    @Override
+    public void run() {
+        ProxyCache proxy = new ProxyCache();
+        proxy.handle(client);
     }
 }
