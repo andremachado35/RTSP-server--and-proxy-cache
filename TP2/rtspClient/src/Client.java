@@ -152,7 +152,7 @@ public static void main(String argv[]) throws Exception
 // theClient.RTSPsocket = new Socket(ServerIPAddr, RTSP_server_port);
  
  
- theClient.RTSPsocket = new Socket("127.0.0.1", 8554);
+ theClient.RTSPsocket = new Socket("127.0.0.1", 8888);
 
  //Set input and output stream filters:
  RTSPBufferedReader = new BufferedReader(new InputStreamReader(theClient.RTSPsocket.getInputStream()) );
