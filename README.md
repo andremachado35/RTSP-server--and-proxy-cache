@@ -1,2 +1,7 @@
 # tsm-g1
-shit will happen here
+Crazy cool things will happen here
+
+
+rtsp client and server using java 
+
+proxy cache using java 
